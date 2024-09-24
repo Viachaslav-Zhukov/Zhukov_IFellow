@@ -12,7 +12,7 @@ public class TestConfig {
 
     static {
         try {
-            fileInputStream = new FileInputStream("src/test/resources/conf.test");
+            fileInputStream = new FileInputStream("src/test/resources/ru.fellow/conf.test");
             PROPERTIES = new Properties();
             PROPERTIES.load(new InputStreamReader(fileInputStream, StandardCharsets.UTF_8));
         } catch (IOException e) {

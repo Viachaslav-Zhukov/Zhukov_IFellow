@@ -1,17 +1,17 @@
-package hooks;
+package ru.fellow.hooks;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import ru.fellow.config.TestConfig;
 
 public class WebHooks {
 
-    @BeforeEach
+    @Before
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
@@ -20,7 +20,7 @@ public class WebHooks {
         Selenide.open(TestConfig.getProperty("loginPageUrl"));
     }
 
-    @AfterEach
+    @After
     public void tearDown() {
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();

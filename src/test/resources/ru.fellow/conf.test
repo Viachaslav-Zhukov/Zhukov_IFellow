@@ -10,7 +10,7 @@ createdTaskName=TestSeleniumATHomework
 
 # Настройки для баг-репортов
 bugIssueType=Ошибка
-bugSummary=Создаем тестовый баг-репорт
+bugSummary=Создаем новый тестовый баг-репорт
 bugDescription=1.Тестовый баг
 bugEnvironment=ОС Windows 10
 newBugSummary=Создаем тестовый баг-репорт

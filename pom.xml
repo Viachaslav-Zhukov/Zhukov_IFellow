@@ -17,11 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <selenide.version>6.18.0</selenide.version>
-        <junit.platform.version>1.9.3</junit.platform.version>
-        <junit.jupiter.version>5.9.2</junit.jupiter.version>
-        <junit.vintage.version>5.9.2</junit.vintage.version>
         <restAssured.version>4.2.0</restAssured.version>
-        <cucumber.version>7.14.0</cucumber.version>
         <log4j.version>1.2.17</log4j.version>
         <log4jCore.version>2.13.2</log4jCore.version>
         <aspectj.version>1.9.19</aspectj.version>
@@ -33,27 +29,17 @@
         <allure.version>2.24.0</allure.version>
         <allure-maven.version>2.24.0</allure-maven.version>
         <json.version>20210307</json.version>
-
         <parallelCount>1</parallelCount>
+
+        <cucumber.version>7.14.0</cucumber.version>
+        <junit.platform.version>1.9.3</junit.platform.version>
+        <junit.jupiter.version>5.9.2</junit.jupiter.version>
+        <junit.vintage.version>5.9.2</junit.vintage.version>
+
     </properties>
 
 
     <dependencies>
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>5.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>4.12.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.codeborne</groupId>
-            <artifactId>selenide</artifactId>
-            <version>6.18.0</version> <!-- проверьте актуальную версию -->
-        </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
@@ -79,6 +65,25 @@
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
             <version>${junit.platform.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>7.14.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>5.9.2</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
@@ -152,12 +157,10 @@
             <artifactId>slf4j-nop</artifactId>
             <version>2.0.13</version>
         </dependency>
-
     </dependencies>
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -169,7 +172,6 @@
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -213,12 +215,25 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.12.0</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <properties>
+                        <configurationParameters>
+                            cucumber.junit-platform.naming-strategy=long
+                        </configurationParameters>
+                    </properties>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

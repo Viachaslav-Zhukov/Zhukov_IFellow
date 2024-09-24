@@ -6,14 +6,8 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class TaskPageTestSeleniumATHomework {
-    SelenideElement taskTitle = $x("//h1[@id='summary-val']");
     SelenideElement taskStatus = $x("//span[contains(text(), 'Сделать')]");
     SelenideElement fixVersion = $x("//a[contains(text(), 'Version 2.0')]");
-
-    // Метод для получения текста заголовка задачи.
-    public String getTaskTitle() {
-        return taskTitle.shouldBe(visible).getText();
-    }
 
     // Метод для получения текста статуса задачи.
     public String getTaskStatus() {
