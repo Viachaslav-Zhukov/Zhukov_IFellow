@@ -13,4 +13,4 @@ bugIssueType=Ошибка
 bugSummary=Создаем новый тестовый баг-репорт
 bugDescription=1.Тестовый баг
 bugEnvironment=ОС Windows 10
-newBugSummary=Создаем тестовый баг-репорт
+newBugSummary=Создаем новый тестовый баг-репорт
