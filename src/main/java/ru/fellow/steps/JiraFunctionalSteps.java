@@ -50,10 +50,13 @@ public class JiraFunctionalSteps {
         System.out.println("Общее количество задач в проекте: " + initialTasksCount);
     }
 
-    @Когда("пользователь создает новую задачу")
-    public void userCreatesNewTask() {
-        taskPage.createNewTask(TestConfig.getProperty("issueType"), TestConfig.getProperty("summary"));
+    @Когда("пользователь создает новую задачу с типом {string} и заголовком {string}")
+    public void userCreatesNewTask(String issueTypeKey, String summaryKey) {
+        String issueType = TestConfig.getProperty(issueTypeKey);
+        String summary = TestConfig.getProperty(summaryKey);
+        taskPage.createNewTask(issueType, summary);
     }
+
 
     @Тогда("количество задач должно увеличиться на 1")
     public void tasksCountShouldIncreaseByOne() {
