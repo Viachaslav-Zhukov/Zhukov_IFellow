@@ -63,10 +63,12 @@ public class JiraFunctionalSteps {
         Assertions.assertEquals(initialTasksCount + 1, updatedTasksCount, "Количество задач не увеличилось на 1 после создания новой задачи.");
     }
 
-    @Когда("пользователь ищет задачу {string}")
-    public void userSearchesTask(String taskName) {
+    @Когда("пользователь ищет задачу \"TestSeleniumATHomework\"")
+    public void userSearchesTask() {
+        String taskName = TestConfig.getProperty("createdTaskName");
         taskPage.searchTask(taskName);
     }
+
 
     @Тогда("пользователь должен видеть статус задачи {string}")
     public void userShouldSeeTaskStatus(String expectedStatus) {
@@ -91,19 +93,19 @@ public class JiraFunctionalSteps {
     }
 
 
-    @Тогда("пользователь переводит баг-репорт в статус В РАБОТЕ")
+    @Тогда("пользователь переводит баг-репорт в статус \"В РАБОТЕ\"")
     public void userTransitionsBugToInProgress() {
         SelenideElement statusElementFirst = bugReportPage.transitionBugToInProgress();
         assertTrue(statusElementFirst.isDisplayed(), "Статус не изменился на 'В РАБОТЕ'.");
     }
 
-    @Тогда("пользователь переводит баг-репорт в статус РЕШЕННЫЕ")
+    @Тогда("пользователь переводит баг-репорт в статус \"РЕШЕННЫЕ\"")
     public void userTransitionsBugToResolved() {
         SelenideElement statusElementSecond = bugReportPage.transitionBugToResolved();
         assertTrue(statusElementSecond.isDisplayed(), "Статус не изменился на 'РЕШЕННЫЕ'.");
     }
 
-    @Тогда("пользователь переводит баг-репорт в статус ГОТОВО")
+    @Тогда("пользователь переводит баг-репорт в статус \"ГОТОВО\"")
     public void userTransitionsBugToDone() {
         SelenideElement actualStatusElement = bugReportPage.transitionBugToDone();
         String expectedStatus = "ГОТОВО";
@@ -113,7 +115,6 @@ public class JiraFunctionalSteps {
 
     @Когда("пользователь удаляет баг-репорт")
     public void userDeletesBugReport() {
-        BugReportPage bugReportPage = new BugReportPage();
         bugReportPage.deleteBugReport();
     }
 
