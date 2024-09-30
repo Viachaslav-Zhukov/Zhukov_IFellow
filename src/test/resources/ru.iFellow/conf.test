@@ -1,0 +1,15 @@
+# Данные пользователя
+name=Tomato
+job=Eat maket
+
+# Эндпоинты
+createUserPath=/api/users
+deleteUserPath=/api/users/{id}
+getUserPath=/api/users/{id}
+
+# Базовый URL для пользователя
+userBaseUrl=https://reqres.in/
+
+# Базовый URL для Рик и Морти
+rickAndMortyBaseUrl=https://rickandmortyapi.com/api
+
