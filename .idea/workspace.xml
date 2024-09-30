@@ -4,21 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fde1343c-f94c-4066-974d-6a8308b5a178" name="Changes" comment="Обновление">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/spec/RestAssuredClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/spec/RickAndMortyRestAssuredClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/steps/RickAndMortyClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/steps/UserClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/config/Props.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/model/CreateUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/utils/UserDataReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ru/iFellow/tests/RickAndMortyTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ru/iFellow/tests/UserCreationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/ru.iFellow/conf.test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/ru.iFellow/user.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="fde1343c-f94c-4066-974d-6a8308b5a178" name="Changes" comment="Добавлен выполненный проект ДЗ_5">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/spec/RestAssuredClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/spec/RestAssuredClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/spec/RickAndMortyRestAssuredClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/spec/RickAndMortyRestAssuredClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/steps/RickAndMortyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/steps/RickAndMortyClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/steps/UserClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/steps/UserClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/config/Props.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/config/Props.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/model/CreateUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/model/CreateUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/utils/UserDataReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/utils/UserDataReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ru/iFellow/tests/RickAndMortyTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/iFellow/tests/RickAndMortyTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ru/iFellow/tests/UserCreationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/iFellow/tests/UserCreationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +32,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="IF_HW_5_5" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -144,10 +140,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.UserCreationTest.testUserNotExist" />
-        <item itemvalue="JUnit.RickAndMortyTests" />
-        <item itemvalue="JUnit.RickAndMortyTests.testCompareLastCharacterWithMorty" />
         <item itemvalue="JUnit.RickAndMortyTests.testGetLastCharacterSpeciesAndLocation" />
         <item itemvalue="JUnit.RickAndMortyTests.testFindMorty" />
+        <item itemvalue="JUnit.RickAndMortyTests.testCompareLastCharacterWithMorty" />
+        <item itemvalue="JUnit.RickAndMortyTests" />
       </list>
     </recent_temporary>
   </component>
@@ -160,6 +156,19 @@
       <option name="presentableId" value="Default" />
       <updated>1726247603984</updated>
     </task>
+    <task id="LOCAL-00001" summary="Добавлен выполненный проект ДЗ_5">
+      <option name="closed" value="true" />
+      <created>1727715179991</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1727715179991</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Добавлен выполненный проект ДЗ_5" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлен выполненный проект ДЗ_5" />
   </component>
 </project>
