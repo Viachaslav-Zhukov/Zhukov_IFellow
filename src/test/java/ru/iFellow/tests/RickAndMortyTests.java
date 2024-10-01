@@ -1,14 +1,10 @@
 package ru.iFellow.tests;
 
 import io.restassured.response.ValidatableResponse;
-import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.iFellow.api.steps.RickAndMortyClient;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.Matchers.not;
 
 @DisplayName("Тесты для API Rick and Morty")
 public class RickAndMortyTests {
@@ -17,51 +13,63 @@ public class RickAndMortyTests {
     @DisplayName("Тест поиска Морти")
     public void testFindMorty() {
         ValidatableResponse response = RickAndMortyClient.findMorty();
-        response.statusCode(HttpStatus.SC_OK);
+
+        String mortyName = response.extract().path("results[0].name");
+        System.out.println("Имя найденного персонажа: " + mortyName);
+
+        Assertions.assertFalse(mortyName.isEmpty(), "Имя Морти не должно быть пустым");
     }
 
     @Test
     @DisplayName("Тест получения последнего эпизода с Морти")
     public void testGetLastEpisodeOfMorty() {
         ValidatableResponse episodeResponse = RickAndMortyClient.getLastEpisodeDetails();
-        assert episodeResponse != null;
-        episodeResponse.body("name", not(equalTo("")));
+        Assertions.assertNotNull(episodeResponse);
+
         String lastEpisodeName = episodeResponse.extract().path("name");
-
         System.out.println("Последний эпизод, где появлялся Морти: " + lastEpisodeName);
+
+        Assertions.assertFalse(lastEpisodeName.isEmpty(), "Имя последнего эпизода не должно быть пустым");
     }
 
     @Test
-    @DisplayName("Тест получения последнего персонажа из последнего эпизода")
+    @DisplayName("Тест получения последнего персонажа из последнего эпизода с Морти")
     public void testGetLastCharacterFromLastEpisode() {
-        ValidatableResponse characterResponse = RickAndMortyClient.getLastCharacterFromLastEpisode();
-        assert characterResponse != null : "Ответ не получен";
-        characterResponse.body("name", not(equalTo("")));
+        ValidatableResponse lastCharacterResponse = RickAndMortyClient.getLastCharacterFromLastEpisode();
+        Assertions.assertNotNull(lastCharacterResponse);
 
-        System.out.println("Последний персонаж: " + characterResponse.extract().path("name"));
+        String lastCharacterName = lastCharacterResponse.extract().path("name");
+        System.out.println("Последний персонаж в эпизоде: " + lastCharacterName);
+
+        Assertions.assertFalse(lastCharacterName.isEmpty(), "Имя последнего персонажа не должно быть пустым");
     }
 
     @Test
-    @DisplayName("Тест получения расы и локации последнего персонажа")
+    @DisplayName("Тест получения данных по расе и местоположению последнего персонажа")
     public void testGetLastCharacterSpeciesAndLocation() {
         ValidatableResponse response = RickAndMortyClient.getLastCharacterSpeciesAndLocation();
-        assert response != null;
+        Assertions.assertNotNull(response);
+
         String species = response.extract().path("species");
         String locationName = response.extract().path("location.name");
 
         System.out.println("Раса последнего персонажа: " + species);
-        System.out.println("Локация последнего персонажа: " + locationName);
+        System.out.println("Местоположение последнего персонажа: " + locationName);
+
+        Assertions.assertFalse(species.isEmpty(), "Раса персонажа не должна быть пустой");
+        Assertions.assertFalse(locationName.isEmpty(), "Местоположение персонажа не должно быть пустым");
     }
 
     @Test
-    @DisplayName("Тест сравнения расы и локации последнего персонажа с Морти")
+    @DisplayName("Сравнение расы и местоположения Морти Смит с последним персонажем")
     public void testCompareLastCharacterWithMorty() {
         ValidatableResponse mortyResponse = RickAndMortyClient.findMorty();
         String mortySpecies = mortyResponse.extract().path("results[0].species");
         String mortyLocation = mortyResponse.extract().path("results[0].location.name");
 
         ValidatableResponse lastCharacterResponse = RickAndMortyClient.getLastCharacterSpeciesAndLocation();
-        assert lastCharacterResponse != null;
+        Assertions.assertNotNull(lastCharacterResponse);
+
         String lastCharacterSpecies = lastCharacterResponse.extract().path("species");
         String lastCharacterLocation = lastCharacterResponse.extract().path("location.name");
 
@@ -71,7 +79,6 @@ public class RickAndMortyTests {
         System.out.println("Местоположение последнего персонажа: " + lastCharacterLocation);
 
         Assertions.assertEquals(mortySpecies, lastCharacterSpecies, "Расы персонажей должны совпадать");
-        Assertions.assertNotEquals(mortyLocation, lastCharacterLocation, "Локация персонажей не должны совпадать");
+        Assertions.assertNotEquals(mortyLocation, lastCharacterLocation, "Местоположения персонажей не должны совпадать");
     }
-
 }

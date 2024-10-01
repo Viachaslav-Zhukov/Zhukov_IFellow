@@ -12,7 +12,7 @@ import ru.iFellow.utils.UserDataReader;
 import static org.hamcrest.Matchers.equalTo;
 
 @DisplayName("Тесты для создания и удаления пользователя")
-public class UserCreationTest {
+public class UserCreationTests {
     private final Props props = ConfigFactory.create(Props.class);
     private ValidatableResponse createResponse;
     private int userId;
@@ -24,6 +24,7 @@ public class UserCreationTest {
         CreateUser userData = UserDataReader.readUserDataFromJson();
         userData.setName(props.name());
         userData.setJob(props.job());
+
         createResponse = UserClient.createUser(userData);
         String userIdString = createResponse.extract().path("id");
         userId = Integer.parseInt(userIdString);
@@ -38,6 +39,7 @@ public class UserCreationTest {
         Assertions.assertNotEquals(0, userId);
         createResponse.body("name", equalTo(props.name()));
         createResponse.body("job", equalTo(props.job()));
+
         userDeleted = false;
     }
 

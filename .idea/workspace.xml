@@ -6,15 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="fde1343c-f94c-4066-974d-6a8308b5a178" name="Changes" comment="Добавлен выполненный проект ДЗ_5">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/spec/RestAssuredClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/spec/RestAssuredClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/spec/RickAndMortyRestAssuredClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/spec/RickAndMortyRestAssuredClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/steps/RickAndMortyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/steps/RickAndMortyClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/steps/UserClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/api/steps/UserClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/config/Props.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/config/Props.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/model/CreateUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/model/CreateUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/iFellow/utils/UserDataReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/iFellow/utils/UserDataReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ru/iFellow/tests/RickAndMortyTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/iFellow/tests/RickAndMortyTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ru/iFellow/tests/UserCreationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/iFellow/tests/UserCreationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ru/iFellow/tests/UserCreationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/iFellow/tests/UserCreationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/ru.iFellow/conf.test" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/ru.iFellow/conf.test" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +53,7 @@
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.UserCreationTest.testUserNotExist">
+  <component name="RunManager" selected="JUnit.RickAndMortyTests.testFindMorty">
     <configuration name="RickAndMortyTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ifellowTest" />
       <extension name="coverage">
@@ -105,6 +101,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RickAndMortyTests.testGetLastCharacterFromLastEpisode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ifellowTest" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.iFellow.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.iFellow.tests" />
+      <option name="MAIN_CLASS_NAME" value="ru.iFellow.tests.RickAndMortyTests" />
+      <option name="METHOD_NAME" value="testGetLastCharacterFromLastEpisode" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RickAndMortyTests.testGetLastCharacterSpeciesAndLocation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ifellowTest" />
       <extension name="coverage">
@@ -121,29 +133,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserCreationTest.testUserNotExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ifellowTest" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.iFellow.tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.iFellow.tests" />
-      <option name="MAIN_CLASS_NAME" value="ru.iFellow.tests.UserCreationTest" />
-      <option name="METHOD_NAME" value="testUserNotExist" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserCreationTest.testUserNotExist" />
-        <item itemvalue="JUnit.RickAndMortyTests.testGetLastCharacterSpeciesAndLocation" />
         <item itemvalue="JUnit.RickAndMortyTests.testFindMorty" />
-        <item itemvalue="JUnit.RickAndMortyTests.testCompareLastCharacterWithMorty" />
         <item itemvalue="JUnit.RickAndMortyTests" />
+        <item itemvalue="JUnit.RickAndMortyTests.testCompareLastCharacterWithMorty" />
+        <item itemvalue="JUnit.RickAndMortyTests.testGetLastCharacterSpeciesAndLocation" />
+        <item itemvalue="JUnit.RickAndMortyTests.testGetLastCharacterFromLastEpisode" />
       </list>
     </recent_temporary>
   </component>

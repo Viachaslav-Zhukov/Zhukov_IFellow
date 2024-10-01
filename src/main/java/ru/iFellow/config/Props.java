@@ -26,4 +26,10 @@ public interface Props extends Config {
 
     @Key("rickAndMortyBaseUrl")
     String rickAndMortyBaseUrl();
+
+    @Key("mortyName")
+    String mortyName();
+
+    @Key("characterEndpoint")
+    String characterEndpoint();
 }

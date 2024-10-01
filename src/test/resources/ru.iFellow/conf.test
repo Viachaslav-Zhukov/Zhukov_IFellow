@@ -13,3 +13,10 @@ userBaseUrl=https://reqres.in/
 # Базовый URL для Рик и Морти
 rickAndMortyBaseUrl=https://rickandmortyapi.com/api
 
+# Имя персонажа
+mortyName=Morty Smith
+
+# Эндпоинт для персонажа
+characterEndpoint=/character/
+
+

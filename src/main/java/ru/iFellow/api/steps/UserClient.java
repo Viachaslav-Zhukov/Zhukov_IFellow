@@ -48,4 +48,3 @@ public class UserClient extends RestAssuredClient {
                 .statusCode(HttpStatus.SC_NOT_FOUND);
     }
 }
-
