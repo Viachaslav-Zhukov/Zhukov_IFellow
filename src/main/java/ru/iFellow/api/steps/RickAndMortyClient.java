@@ -25,6 +25,7 @@ public class RickAndMortyClient extends RickAndMortyRestAssuredClient {
                 .get(props.characterEndpoint())
                 .then()
                 .log().all()
+                .assertThat()
                 .statusCode(HttpStatus.SC_OK)
                 .body("results.name", hasItem(props.mortyName()));
     }
@@ -44,6 +45,7 @@ public class RickAndMortyClient extends RickAndMortyRestAssuredClient {
                     .get(lastEpisodeUrl)
                     .then()
                     .log().all()
+                    .assertThat()
                     .statusCode(HttpStatus.SC_OK);
         }
 
@@ -68,6 +70,7 @@ public class RickAndMortyClient extends RickAndMortyRestAssuredClient {
                     .get(lastCharacterUrl)
                     .then()
                     .log().all()
+                    .assertThat()
                     .statusCode(HttpStatus.SC_OK);
         }
 
@@ -90,6 +93,7 @@ public class RickAndMortyClient extends RickAndMortyRestAssuredClient {
                 .get(lastCharacterUrl)
                 .then()
                 .log().all()
+                .assertThat()
                 .statusCode(HttpStatus.SC_OK);
     }
 }
