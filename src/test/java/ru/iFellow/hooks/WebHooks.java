@@ -24,12 +24,21 @@ public class WebHooks {
         );
     }
 
+
     @BeforeEach
     public void setUp() {
+        String chromeDriverPath = props.chromeDriverPath();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
-        WebDriverManager.chromedriver().setup();
-        WebDriverRunner.setWebDriver(new ChromeDriver(options));
+
+        if (chromeDriverPath != null && !chromeDriverPath.isEmpty()) {
+            System.setProperty("webdriver.chrome.driver", chromeDriverPath);
+            WebDriverRunner.setWebDriver(new ChromeDriver(options));
+        } else {
+            WebDriverManager.chromedriver().setup();
+            WebDriverRunner.setWebDriver(new ChromeDriver(options));
+        }
+
         Selenide.open(props.loginPageUrl());
     }
 
