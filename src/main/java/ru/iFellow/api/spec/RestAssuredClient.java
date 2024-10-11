@@ -1,5 +1,6 @@
 package ru.iFellow.api.spec;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.specification.RequestSpecification;
@@ -13,6 +14,7 @@ public class RestAssuredClient {
 
     protected static RequestSpecification getBaseSpec() {
         return new RequestSpecBuilder()
+                .addFilter(new AllureRestAssured())
                 .log(LogDetail.ALL)
                 .setContentType(JSON)
                 .setBaseUri(props.userBaseUrl())
