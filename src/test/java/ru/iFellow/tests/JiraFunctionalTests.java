@@ -1,9 +1,8 @@
 package ru.iFellow.tests;
 
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.aeonbits.owner.ConfigFactory;
 import io.qameta.allure.Description;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.iFellow.config.Props;
@@ -16,15 +15,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class JiraFunctionalTests extends WebHooks {
     private static final Props props = ConfigFactory.create(Props.class);
     private final MainPage mainPage = new MainPage();
-    private final AuthorizationPage authorizationPage = Selenide.page(AuthorizationPage.class);
+    private final AuthorizationPage authorizationPage = new AuthorizationPage();
+    private final TheTaskPageOfTheTestProject taskPage = new TheTaskPageOfTheTestProject();
 
     @Test
     @DisplayName("Авторизация и проверка отображения иконки профиля")
     @Description("Тест проверяет успешную авторизацию и отображение иконки профиля пользователя на главной странице")
     public void testLogin() {
-        authorizationPage.login(props.username(),
-                props.password()
-        );
+        authorizationPage.login(props.username(), props.password());
         SelenideElement profileIcon = mainPage.verifyAndGetProfileIcon();
         assertTrue(profileIcon.isDisplayed(), "Профиль не отображается, авторизация не удалась.");
     }
@@ -33,11 +31,8 @@ public class JiraFunctionalTests extends WebHooks {
     @DisplayName("Авторизация и переход в проект Test")
     @Description("Тест проверяет успешную авторизацию и переход в проект 'Test' с проверкой правильности отображения аватара проекта")
     public void testLoginAndNavigateToTestProject() {
-        authorizationPage.login(props.username(),
-                props.password()
-        );
+        authorizationPage.login(props.username(), props.password());
         mainPage.selectTestProjectFromDropdown();
-        TheTaskPageOfTheTestProject taskPage = new TheTaskPageOfTheTestProject();
         String actualAltText = taskPage.getProjectAvatarAltText();
         assertEquals("Test", actualAltText, "Ожидался alt текст 'Test' для аватара проекта.");
     }
@@ -46,19 +41,13 @@ public class JiraFunctionalTests extends WebHooks {
     @DisplayName("Создание новой задачи и проверка увеличения количества задач")
     @Description("Тест проверяет создание новой задачи и увеличение счетчика задач на один после ее создания")
     public void testCreateNewTaskAndVerifyCount() {
-        authorizationPage.login(props.username(),
-                props.password()
-        );
-
+        authorizationPage.login(props.username(), props.password());
         mainPage.selectTestProjectFromDropdown();
-        TheTaskPageOfTheTestProject taskPage = new TheTaskPageOfTheTestProject();
 
         int initialTasksCount = taskPage.getTotalTasksCount();
         System.out.println("Количество задач до создания новой: " + initialTasksCount);
 
-        taskPage.createNewTask(props.issueType(),
-                props.summary()
-        );
+        taskPage.createNewTask(props.issueType(), props.summary());
 
         int updatedTasksCount = taskPage.getTotalTasksCount();
         System.out.println("Общее количество заведенных задач после создания новой: " + updatedTasksCount);
@@ -69,12 +58,8 @@ public class JiraFunctionalTests extends WebHooks {
     @DisplayName("Проверка статуса и версии исправления задачи")
     @Description("Тест проверяет статус задачи и версию исправления для конкретной задачи, найденной по имени")
     public void testTaskStatusAndFixVersions() {
-        authorizationPage.login(props.username(),
-                props.password()
-        );
-
+        authorizationPage.login(props.username(), props.password());
         mainPage.selectTestProjectFromDropdown();
-        TheTaskPageOfTheTestProject taskPage = new TheTaskPageOfTheTestProject();
 
         taskPage.searchTask(props.createdTaskName());
         TaskPageTestSeleniumATHomework taskPageTestSeleniumATHomework = new TaskPageTestSeleniumATHomework();
@@ -93,15 +78,10 @@ public class JiraFunctionalTests extends WebHooks {
     @DisplayName("Создание бага и изменение его статусов")
     @Description("Тест проверяет создание нового баг-репорта, его перевод через статусы 'В РАБОТЕ', 'РЕШЕННЫЕ' и 'ГОТОВО', а затем его удаление")
     public void testCreateAndTransitionBugToClosedStatus() {
-        authorizationPage.login(props.username(),
-                props.password()
-        );
-
+        authorizationPage.login(props.username(), props.password());
         mainPage.selectTestProjectFromDropdown();
-        TheTaskPageOfTheTestProject taskPage = new TheTaskPageOfTheTestProject();
 
         taskPage.createNewBug(props.bugIssueType(), props.bugSummary(), props.bugDescription(), props.bugEnvironment());
-
         taskPage.searchBug(props.newBugSummary());
         BugReportPage bugReportPage = new BugReportPage();
 
@@ -119,5 +99,3 @@ public class JiraFunctionalTests extends WebHooks {
         bugReportPage.deleteBugReport();
     }
 }
-
-

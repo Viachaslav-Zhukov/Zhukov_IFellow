@@ -3,7 +3,7 @@ package ru.iFellow.config;
 import org.aeonbits.owner.Config;
 
 @Config.Sources({
-        "file:src/test/resources/ru.iFellow/conf/conf.properties"
+        "file:src/test/resources/ru.iFellow/config/conf.properties"
 })
 
 public interface Props extends Config {
