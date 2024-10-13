@@ -4,15 +4,14 @@ import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import io.restassured.response.ValidatableResponse;
 import ru.iFellow.api.steps.RickAndMortyClient;
+import ru.iFellow.utils.AssertionUtil;
 import ru.iFellow.utils.LogUtil;
 
 public class RickAndMortySteps {
 
     private ValidatableResponse response; // Ответ на запрос о персонаже
     private ValidatableResponse episodeResponse; // Ответ на запрос о последнем эпизоде
-    private ValidatableResponse lastCharacterResponse; // Ответ на запрос о последнем персонаже
     private ValidatableResponse speciesAndLocationResponse; // Ответ на запрос о расе и местоположении последнего персонажа
-    private ValidatableResponse mortyResponse; // Ответ на запрос о Морти
 
     @Когда("я отправляю запрос на получение информации о персонаже Морти Смит")
     public void sendRequestToGetInformationAboutMortySmith() {
@@ -45,10 +44,17 @@ public class RickAndMortySteps {
     @Тогда("я должен получить последнего персонажа из последнего эпизода")
     public void shouldGetLastCharacterFromLastEpisode() {
         // Получаем информацию о последнем персонаже из последнего эпизода
-        lastCharacterResponse = RickAndMortyClient.getLastCharacterFromLastEpisode();
-        String lastCharacterName = lastCharacterResponse.extract().path("name");
-        LogUtil.logToAllure("Последний персонаж в эпизоде: " + lastCharacterName); // Логируем в Allure
+        ValidatableResponse lastCharacterResponse = RickAndMortyClient.getLastCharacterFromLastEpisode();
+
+        // Проверка на null перед вызовом extract
+        if (lastCharacterResponse != null) {
+            String lastCharacterName = lastCharacterResponse.extract().path("name");
+            LogUtil.logToAllure("Последний персонаж в эпизоде: " + lastCharacterName); // Логируем в Allure
+        } else {
+            LogUtil.logToAllure("Не удалось получить последнего персонажа: lastCharacterResponse равен null");
+        }
     }
+
 
     @Когда("я отправляю запрос на получение данных по расе и местоположению последнего персонажа")
     public void sendRequestToGetLastCharacterSpeciesAndLocation() {
@@ -66,33 +72,27 @@ public class RickAndMortySteps {
         LogUtil.logToAllure("Местоположение последнего персонажа: " + locationName); // Логируем в Allure
     }
 
-    @Когда("я отправляю запрос на получение расы и местоположения Морти Смит и последнего персонажа")
-    public void sendRequestToCompareMortyWithLastCharacter() {
-        // Запрос для получения информации о Морти
-        mortyResponse = RickAndMortyClient.findMorty();
-        // Запрос для получения информации о последнем персонаже
-        lastCharacterResponse = RickAndMortyClient.getLastCharacterSpeciesAndLocation();
-    }
-
-    @Тогда("я должен получить и сравнить расы и местоположения Морти Смит и последнего персонажа")
-    public void shouldGetComparisonResults() {
-        // Сохраняем результаты в ответах
-        String mortySpecies = mortyResponse.extract().path("results[0].species");
-        String mortyLocation = mortyResponse.extract().path("results[0].location.name");
+    @Тогда("я должен сравнить расы и местоположения Морти Смит и последнего персонажа")
+    public void shouldCompareMortyAndLastCharacter() {
+        // Извлекаем данные о Морти
+        String mortySpecies = response.extract().path("results[0].species");
+        String mortyLocation = response.extract().path("results[0].location.name");
 
         // Логируем данные о Морти
         LogUtil.logToAllure("Раса Морти: " + mortySpecies);
         LogUtil.logToAllure("Местоположение Морти: " + mortyLocation);
 
         // Извлекаем данные о последнем персонаже
-        String lastCharacterSpecies = lastCharacterResponse.extract().path("species");
-        String lastCharacterLocation = lastCharacterResponse.extract().path("location.name");
+        String lastCharacterSpecies = speciesAndLocationResponse.extract().path("species");
+        String lastCharacterLocation = speciesAndLocationResponse.extract().path("location.name");
 
         // Логируем данные о последнем персонаже
         LogUtil.logToAllure("Раса последнего персонажа: " + lastCharacterSpecies);
         LogUtil.logToAllure("Местоположение последнего персонажа: " + lastCharacterLocation);
 
-        // Сообщение о завершении сравнения
-        LogUtil.logToAllure("Сравнение завершено.");
+        // Вызов утилитного класса для ассертов
+        AssertionUtil.assertSpecies(mortySpecies, lastCharacterSpecies);
+        AssertionUtil.assertLocations(mortyLocation, lastCharacterLocation);
     }
+
 }

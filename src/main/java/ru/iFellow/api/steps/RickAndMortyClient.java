@@ -11,6 +11,9 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.hamcrest.Matchers.not;
+
 
 public class RickAndMortyClient extends RickAndMortyRestAssuredClient {
 
@@ -27,7 +30,8 @@ public class RickAndMortyClient extends RickAndMortyRestAssuredClient {
                 .log().all()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
-                .body("results.name", hasItem(props.mortyName()));
+                .body("results.name", hasItem(props.mortyName()))
+                .body("results[0].name", not(emptyOrNullString()));
     }
 
 
@@ -46,11 +50,13 @@ public class RickAndMortyClient extends RickAndMortyRestAssuredClient {
                     .then()
                     .log().all()
                     .assertThat()
-                    .statusCode(HttpStatus.SC_OK);
+                    .statusCode(HttpStatus.SC_OK)  // Проверка статус-кода
+                    .body("name", not(emptyOrNullString()));  // Проверка, что имя последнего эпизода не пустое
         }
 
         return null;
     }
+
 
     @Step("Получить последнего персонажа из последнего эпизода с Морти")
     public static ValidatableResponse getLastCharacterFromLastEpisode() {
@@ -71,11 +77,13 @@ public class RickAndMortyClient extends RickAndMortyRestAssuredClient {
                     .then()
                     .log().all()
                     .assertThat()
-                    .statusCode(HttpStatus.SC_OK);
+                    .statusCode(HttpStatus.SC_OK)  // Проверка успешного статус-кода
+                    .body("name", not(emptyOrNullString()));  // Проверка, что имя последнего персонажа не пустое
         }
 
         return null;
     }
+
 
     @Step("Получить данные по местонахождению и расе последнего персонажа")
     public static ValidatableResponse getLastCharacterSpeciesAndLocation() {
@@ -94,6 +102,9 @@ public class RickAndMortyClient extends RickAndMortyRestAssuredClient {
                 .then()
                 .log().all()
                 .assertThat()
-                .statusCode(HttpStatus.SC_OK);
+                .statusCode(HttpStatus.SC_OK)  // Проверка успешного статус-кода
+                .body("species", not(emptyOrNullString()))  // Проверка, что поле species не пустое
+                .body("location.name", not(emptyOrNullString()));  // Проверка, что местоположение не пустое
     }
+
 }
