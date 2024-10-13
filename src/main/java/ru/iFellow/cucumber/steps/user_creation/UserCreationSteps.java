@@ -1,4 +1,4 @@
-package ru.iFellow.cucumber.steps;
+package ru.iFellow.cucumber.steps.user_creation;
 
 import io.cucumber.java.After;
 import io.cucumber.java.ru.Когда;

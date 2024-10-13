@@ -1,4 +1,4 @@
-package ru.iFellow.cucumber.steps;
+package ru.iFellow.cucumber.steps.rick_and_morty;
 
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
