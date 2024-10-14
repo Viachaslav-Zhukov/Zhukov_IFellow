@@ -50,8 +50,8 @@ public class RickAndMortyClient extends RickAndMortyRestAssuredClient {
                     .then()
                     .log().all()
                     .assertThat()
-                    .statusCode(HttpStatus.SC_OK)  // Проверка статус-кода
-                    .body("name", not(emptyOrNullString()));  // Проверка, что имя последнего эпизода не пустое
+                    .statusCode(HttpStatus.SC_OK)
+                    .body("name", not(emptyOrNullString()));
         }
 
         return null;
@@ -77,8 +77,8 @@ public class RickAndMortyClient extends RickAndMortyRestAssuredClient {
                     .then()
                     .log().all()
                     .assertThat()
-                    .statusCode(HttpStatus.SC_OK)  // Проверка успешного статус-кода
-                    .body("name", not(emptyOrNullString()));  // Проверка, что имя последнего персонажа не пустое
+                    .statusCode(HttpStatus.SC_OK)
+                    .body("name", not(emptyOrNullString()));
         }
 
         return null;
@@ -102,9 +102,9 @@ public class RickAndMortyClient extends RickAndMortyRestAssuredClient {
                 .then()
                 .log().all()
                 .assertThat()
-                .statusCode(HttpStatus.SC_OK)  // Проверка успешного статус-кода
-                .body("species", not(emptyOrNullString()))  // Проверка, что поле species не пустое
-                .body("location.name", not(emptyOrNullString()));  // Проверка, что местоположение не пустое
+                .statusCode(HttpStatus.SC_OK)
+                .body("species", not(emptyOrNullString()))
+                .body("location.name", not(emptyOrNullString()));
     }
 
 }

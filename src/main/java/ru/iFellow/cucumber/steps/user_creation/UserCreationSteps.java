@@ -14,7 +14,6 @@ import ru.iFellow.utils.LogUtil;
 import ru.iFellow.utils.UserDataReader;
 
 public class UserCreationSteps {
-
     private final Props props = ConfigFactory.create(Props.class);
     private ValidatableResponse createResponse;
     private int userId;
@@ -26,53 +25,44 @@ public class UserCreationSteps {
         userData.setName(props.name());
         userData.setJob(props.job());
 
-        // Отправляем запрос на создание пользователя и логируем результат
         createResponse = UserClient.createUser(userData);
         String userIdString = createResponse.extract().path("id");
         userId = Integer.parseInt(userIdString);
 
-        // Логируем ID созданного пользователя
         LogUtil.logToAllure("Созданный пользователь ID: " + userId);
     }
 
     @Тогда("я получаю статус создания пользователя '201' и ответ содержит правильные данные")
     public void verifyStatusAndResponseData() {
-        // Проверяем, что статус ответа 201 (Created)
-        createResponse.statusCode(HttpStatus.SC_CREATED);
 
-        // Проверяем, что ID пользователя не равен 0
+        createResponse.statusCode(HttpStatus.SC_CREATED);
         AssertionUtil.assertUserIdNotZero(userId);
 
-        // Извлекаем имя и работу пользователя из ответа API
         String responseName = createResponse.extract().path("name");
         String responseJob = createResponse.extract().path("job");
 
-        // Логируем данные для проверки
         LogUtil.logToAllure("Проверяем данные пользователя: имя = " + responseName + ", работа = " + responseJob);
 
-        // Используем AssertionUtil для проверки данных
-        AssertionUtil.assertUserName(responseName, props.name()); // Проверяем имя
-        AssertionUtil.assertUserJob(responseJob, props.job());    // Проверяем работу
+        AssertionUtil.assertUserName(responseName, props.name());
+        AssertionUtil.assertUserJob(responseJob, props.job());
         userDeleted = false;
     }
 
     @Тогда("я удаляю созданного пользователя и проверяю статус успешного удаления")
     public void deleteUserAndVerifyStatus() {
-        // Удаляем пользователя
-        UserClient.deleteUser(userId);
-        userDeleted = true; // Устанавливаем флаг, что пользователь был удален
 
-        // Логируем удаление пользователя
+        UserClient.deleteUser(userId);
+        userDeleted = true;
+
         LogUtil.logToAllure("Удаленный пользователь ID: " + userId);
     }
 
     @Тогда("я проверяю отсутствие пользователя по ID, после удаления и статус ответа")
     public void checkUserNotExist() {
-        // Проверяем, что пользователь был удален
-        UserClient.getUserById(userId); // Этот метод проверит, что пользователь не существует
+
+        UserClient.getUserById(userId);
         LogUtil.logToAllure("Пользователь с ID " + userId + " не существует.");
     }
-
 
     @After
     public void tearDown() {
