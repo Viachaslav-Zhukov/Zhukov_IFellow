@@ -28,7 +28,6 @@ public class UserCreationSteps {
         createResponse = UserClient.createUser(userData);
         String userIdString = createResponse.extract().path("id");
         userId = Integer.parseInt(userIdString);
-
         LogUtil.logToAllure("Созданный пользователь ID: " + userId);
     }
 
@@ -40,7 +39,6 @@ public class UserCreationSteps {
 
         String responseName = createResponse.extract().path("name");
         String responseJob = createResponse.extract().path("job");
-
         LogUtil.logToAllure("Проверяем данные пользователя: имя = " + responseName + ", работа = " + responseJob);
 
         AssertionUtil.assertUserName(responseName, props.name());
@@ -53,12 +51,15 @@ public class UserCreationSteps {
 
         UserClient.deleteUser(userId);
         userDeleted = true;
-
         LogUtil.logToAllure("Удаленный пользователь ID: " + userId);
     }
 
     @Тогда("я проверяю отсутствие пользователя по ID, после удаления и статус ответа")
     public void checkUserNotExist() {
+
+        UserClient.deleteUser(userId);
+        userDeleted = true;
+        LogUtil.logToAllure("Удаленный пользователь ID: " + userId);
 
         UserClient.getUserById(userId);
         LogUtil.logToAllure("Пользователь с ID " + userId + " не существует.");
