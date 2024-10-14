@@ -42,5 +42,17 @@ public interface Props extends Config {
 
     @Key("chrome.driver.path")
     String chromeDriverPath();
+
+    @Key("expectedTaskStatus")
+    String expectedTaskStatus();
+
+    @Key("expectedFixVersion")
+    String expectedFixVersion();
+
+    @Key("expectedProjectAvatarAltText")
+    String expectedProjectAvatarAltText();
+
+    @Key("expectedBugDoneStatus")
+    String expectedBugDoneStatus();
 }
 

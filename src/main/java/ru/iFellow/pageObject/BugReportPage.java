@@ -38,7 +38,7 @@ public class BugReportPage {
     SelenideElement deleteConfirmationButton = $x("//input[@id='delete-issue-submit' and @value='Удалить']")
             .as("Кнопка подтверждения удаления: Удалить");
 
-    // Метод для перехода в статус "В РАБОТЕ" с аннотацией @Step
+    // Метод для перехода в статус "В РАБОТЕ"
     @Step("Переводим баг в статус 'В работе'")
     public SelenideElement transitionBugToInProgress() {
         bugStatusToMake.shouldBe(visible).shouldHave(text("СДЕЛАТЬ"));
@@ -49,7 +49,7 @@ public class BugReportPage {
         return inProgressStatus.shouldBe(visible);
     }
 
-    // Метод для перехода в статус "РЕШЕННЫЕ" с аннотацией @Step
+    // Метод для перехода в статус "РЕШЕННЫЕ"
     @Step("Переводим баг в статус 'Решенные'")
     public SelenideElement transitionBugToResolved() {
         businessProcessDropdown.shouldBe(visible).click();
@@ -59,7 +59,7 @@ public class BugReportPage {
         return resolvedStatus.shouldBe(visible);
     }
 
-    // Метод для перехода в статус "ГОТОВО" с аннотацией @Step
+    // Метод для перехода в статус "ГОТОВО"
     @Step("Переводим баг в статус 'Готово'")
     public SelenideElement transitionBugToDone() {
         businessProcessDropdown.shouldBe(visible).click();
@@ -69,7 +69,7 @@ public class BugReportPage {
         return doneStatus.shouldBe(visible);
     }
 
-    // Метод для удаления созданного баг-репорта с аннотацией @Step
+    // Метод для удаления созданного баг-репорта
     @Step("Удаляем баг-репорт")
     public void deleteBugReport() {
         moreDropdownButton.shouldBe(visible).click();

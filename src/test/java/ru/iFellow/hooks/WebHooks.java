@@ -24,7 +24,6 @@ public class WebHooks {
         );
     }
 
-
     @BeforeEach
     public void setUp() {
         String chromeDriverPath = props.chromeDriverPath();

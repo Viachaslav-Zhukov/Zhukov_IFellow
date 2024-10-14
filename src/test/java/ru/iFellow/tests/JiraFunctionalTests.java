@@ -34,7 +34,7 @@ public class JiraFunctionalTests extends WebHooks {
         authorizationPage.login(props.username(), props.password());
         mainPage.selectTestProjectFromDropdown();
         String actualAltText = taskPage.getProjectAvatarAltText();
-        assertEquals("Test", actualAltText, "Ожидался alt текст 'Test' для аватара проекта.");
+        assertEquals(props.expectedProjectAvatarAltText(), actualAltText, "Ожидался alt текст 'Test' для аватара проекта.");
     }
 
     @Test
@@ -68,10 +68,10 @@ public class JiraFunctionalTests extends WebHooks {
         assertEquals(props.createdTaskName(), actualTaskTitle, "Название задачи не соответствует ожидаемому значению.");
 
         String actualTaskStatus = taskPageTestSeleniumATHomework.getTaskStatus();
-        assertEquals("СДЕЛАТЬ", actualTaskStatus, "Статус задачи не соответствует ожидаемому значению.");
+        assertEquals(props.expectedTaskStatus(), actualTaskStatus, "Статус задачи не соответствует ожидаемому значению.");
 
         String actualFixVersion = taskPageTestSeleniumATHomework.getFixVersion();
-        assertEquals("Version 2.0", actualFixVersion, "Версия исправления не соответствует ожидаемому значению.");
+        assertEquals(props.expectedFixVersion(), actualFixVersion, "Версия исправления не соответствует ожидаемому значению.");
     }
 
     @Test
@@ -92,10 +92,8 @@ public class JiraFunctionalTests extends WebHooks {
         assertTrue(statusElementSecond.isDisplayed(), "Статус не изменился на 'РЕШЕННЫЕ'.");
 
         SelenideElement actualStatusElement = bugReportPage.transitionBugToDone();
-        String expectedStatus = "ГОТОВО";
         String actualStatus = actualStatusElement.getText();
-        assertEquals(expectedStatus, actualStatus, "Ожидаемый статус не совпадает с фактическим.");
-
+        assertEquals(props.expectedBugDoneStatus(), actualStatus, "Ожидаемый статус не совпадает с фактическим.");
         bugReportPage.deleteBugReport();
     }
 }
