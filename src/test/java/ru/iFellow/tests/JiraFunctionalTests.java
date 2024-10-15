@@ -1,7 +1,9 @@
 package ru.iFellow.tests;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
+import io.qameta.allure.Owner;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,25 +21,34 @@ public class JiraFunctionalTests extends WebHooks {
     private final TheTaskPageOfTheTestProject taskPage = new TheTaskPageOfTheTestProject();
 
     @Test
+    @Owner("Вячеслав Жуков")
     @DisplayName("Авторизация и проверка отображения иконки профиля")
     @Description("Тест проверяет успешную авторизацию и отображение иконки профиля пользователя на главной странице")
     public void testLogin() {
         authorizationPage.login(props.username(), props.password());
         SelenideElement profileIcon = mainPage.verifyAndGetProfileIcon();
-        assertTrue(profileIcon.isDisplayed(), "Профиль не отображается, авторизация не удалась.");
+
+        Allure.step("Проверяем, что иконка профиля отображается",
+                () -> assertTrue(profileIcon.isDisplayed(), "Профиль не отображается, авторизация не удалась.")
+        );
     }
 
     @Test
+    @Owner("Вячеслав Жуков")
     @DisplayName("Авторизация и переход в проект Test")
     @Description("Тест проверяет успешную авторизацию и переход в проект 'Test' с проверкой правильности отображения аватара проекта")
     public void testLoginAndNavigateToTestProject() {
         authorizationPage.login(props.username(), props.password());
         mainPage.selectTestProjectFromDropdown();
         String actualAltText = taskPage.getProjectAvatarAltText();
-        assertEquals(props.expectedProjectAvatarAltText(), actualAltText, "Ожидался alt текст 'Test' для аватара проекта.");
+
+        Allure.step("Проверяем, что alt текст аватара проекта совпадает с ожидаемым",
+                () -> assertEquals(props.expectedProjectAvatarAltText(), actualAltText, "Ожидался alt текст 'Test' для аватара проекта.")
+        );
     }
 
     @Test
+    @Owner("Вячеслав Жуков")
     @DisplayName("Создание новой задачи и проверка увеличения количества задач")
     @Description("Тест проверяет создание новой задачи и увеличение счетчика задач на один после ее создания")
     public void testCreateNewTaskAndVerifyCount() {
@@ -51,10 +62,14 @@ public class JiraFunctionalTests extends WebHooks {
 
         int updatedTasksCount = taskPage.getTotalTasksCount();
         System.out.println("Общее количество заведенных задач после создания новой: " + updatedTasksCount);
-        assertEquals(initialTasksCount + 1, updatedTasksCount, "Количество задач не увеличилось на 1 после создания новой задачи.");
+
+        Allure.step("Проверяем, что количество задач увеличилось на 1",
+                () -> assertEquals(initialTasksCount + 1, updatedTasksCount, "Количество задач не увеличилось на 1 после создания новой задачи.")
+        );
     }
 
     @Test
+    @Owner("Вячеслав Жуков")
     @DisplayName("Проверка статуса и версии исправления задачи")
     @Description("Тест проверяет статус задачи и версию исправления для конкретной задачи, найденной по имени")
     public void testTaskStatusAndFixVersions() {
@@ -65,16 +80,23 @@ public class JiraFunctionalTests extends WebHooks {
         TaskPageTestSeleniumATHomework taskPageTestSeleniumATHomework = new TaskPageTestSeleniumATHomework();
 
         String actualTaskTitle = taskPageTestSeleniumATHomework.getTaskTitle();
-        assertEquals(props.createdTaskName(), actualTaskTitle, "Название задачи не соответствует ожидаемому значению.");
+        Allure.step("Проверяем, что название задачи совпадает с ожидаемым",
+                () -> assertEquals(props.createdTaskName(), actualTaskTitle, "Название задачи не соответствует ожидаемому значению.")
+        );
 
         String actualTaskStatus = taskPageTestSeleniumATHomework.getTaskStatus();
-        assertEquals(props.expectedTaskStatus(), actualTaskStatus, "Статус задачи не соответствует ожидаемому значению.");
+        Allure.step("Проверяем, что статус задачи совпадает с ожидаемым",
+                () -> assertEquals(props.expectedTaskStatus(), actualTaskStatus, "Статус задачи не соответствует ожидаемому значению.")
+        );
 
         String actualFixVersion = taskPageTestSeleniumATHomework.getFixVersion();
-        assertEquals(props.expectedFixVersion(), actualFixVersion, "Версия исправления не соответствует ожидаемому значению.");
+        Allure.step("Проверяем, что версия исправления задачи совпадает с ожидаемой",
+                () -> assertEquals(props.expectedFixVersion(), actualFixVersion, "Версия исправления не соответствует ожидаемому значению.")
+        );
     }
 
     @Test
+    @Owner("Вячеслав Жуков")
     @DisplayName("Создание бага и изменение его статусов")
     @Description("Тест проверяет создание нового баг-репорта, его перевод через статусы 'В РАБОТЕ', 'РЕШЕННЫЕ' и 'ГОТОВО', а затем его удаление")
     public void testCreateAndTransitionBugToClosedStatus() {
@@ -86,14 +108,20 @@ public class JiraFunctionalTests extends WebHooks {
         BugReportPage bugReportPage = new BugReportPage();
 
         SelenideElement statusElementFirst = bugReportPage.transitionBugToInProgress();
-        assertTrue(statusElementFirst.isDisplayed(), "Статус не изменился на 'В РАБОТЕ'.");
+        Allure.step("Проверяем статус баг-репорта 'В РАБОТЕ'",
+                () -> assertTrue(statusElementFirst.isDisplayed(), "Статус не изменился на 'В РАБОТЕ'.")
+        );
 
         SelenideElement statusElementSecond = bugReportPage.transitionBugToResolved();
-        assertTrue(statusElementSecond.isDisplayed(), "Статус не изменился на 'РЕШЕННЫЕ'.");
+        Allure.step("Проверяем статус баг-репорта 'РЕШЕННЫЕ'",
+                () -> assertTrue(statusElementSecond.isDisplayed(), "Статус не изменился на 'РЕШЕННЫЕ'.")
+        );
 
         SelenideElement actualStatusElement = bugReportPage.transitionBugToDone();
-        String actualStatus = actualStatusElement.getText();
-        assertEquals(props.expectedBugDoneStatus(), actualStatus, "Ожидаемый статус не совпадает с фактическим.");
+        Allure.step("Проверяем статус баг-репорта 'ГОТОВО'",
+                () -> assertEquals(props.expectedBugDoneStatus(), actualStatusElement.getText(), "Ожидаемый статус не совпадает с фактическим.")
+        );
+
         bugReportPage.deleteBugReport();
     }
 }
