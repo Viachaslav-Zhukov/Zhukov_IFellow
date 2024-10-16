@@ -30,16 +30,24 @@ public class WebHooks {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
 
-        if (chromeDriverPath != null && !chromeDriverPath.isEmpty()) {
-            System.setProperty("webdriver.chrome.driver", chromeDriverPath);
-            WebDriverRunner.setWebDriver(new ChromeDriver(options));
-        } else {
+        try {
+            if (chromeDriverPath != null && !chromeDriverPath.isEmpty()) {
+                System.setProperty("webdriver.chrome.driver", chromeDriverPath);
+                WebDriverRunner.setWebDriver(new ChromeDriver(options));
+                System.out.println("Драйвер найден по пути: " + chromeDriverPath + ". Используем локальный chromedriver.");
+                Selenide.open(props.loginPageUrl());
+            } else {
+                throw new IllegalArgumentException("Путь к chromedriver не указан. Используем WebDriverManager.");
+            }
+        } catch (Exception e) {
+            System.out.println("Ошибка при использовании локального драйвера: " + e.getMessage());
+            System.out.println("Используем WebDriverManager для установки драйвера.");
             WebDriverManager.chromedriver().setup();
             WebDriverRunner.setWebDriver(new ChromeDriver(options));
+            Selenide.open(props.loginPageUrl());
         }
-
-        Selenide.open(props.loginPageUrl());
     }
+
 
     @AfterEach
     public void tearDown() {
