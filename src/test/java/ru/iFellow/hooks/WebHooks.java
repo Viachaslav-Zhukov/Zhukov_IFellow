@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import ru.iFellow.config.Props;
+import ru.iFellow.utils.LogUtil;
 
 public class WebHooks {
     private static final Props props = ConfigFactory.create(Props.class);
@@ -31,22 +32,26 @@ public class WebHooks {
         options.addArguments("start-maximized");
 
         try {
+            // Проверяем, указан ли путь к драйверу в файле
             if (chromeDriverPath != null && !chromeDriverPath.isEmpty()) {
                 System.setProperty("webdriver.chrome.driver", chromeDriverPath);
                 WebDriverRunner.setWebDriver(new ChromeDriver(options));
-                System.out.println("Драйвер найден по пути: " + chromeDriverPath + ". Используем локальный chromedriver.");
+                LogUtil.logToAllure("Драйвер найден по пути: " + chromeDriverPath + ". Используем локальный chromedriver.");
                 Selenide.open(props.loginPageUrl());
             } else {
+                // Если путь не указан, используем WebDriverManager
                 throw new IllegalArgumentException("Путь к chromedriver не указан. Используем WebDriverManager.");
             }
         } catch (Exception e) {
-            System.out.println("Ошибка при использовании локального драйвера: " + e.getMessage());
-            System.out.println("Используем WebDriverManager для установки драйвера.");
+            // Если возникла ошибка, используем WebDriverManager
+            LogUtil.logToAllure("Ошибка при использовании локального драйвера: " + e.getMessage());
+            LogUtil.logToAllure("Используем WebDriverManager для установки драйвера.");
             WebDriverManager.chromedriver().setup();
             WebDriverRunner.setWebDriver(new ChromeDriver(options));
             Selenide.open(props.loginPageUrl());
         }
     }
+
 
 
     @AfterEach

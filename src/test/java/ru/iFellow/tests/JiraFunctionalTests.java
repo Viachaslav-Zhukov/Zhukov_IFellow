@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import ru.iFellow.config.Props;
 import ru.iFellow.hooks.WebHooks;
 import ru.iFellow.pageObject.*;
+import ru.iFellow.utils.LogUtil;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -56,12 +57,12 @@ public class JiraFunctionalTests extends WebHooks {
         mainPage.selectTestProjectFromDropdown();
 
         int initialTasksCount = taskPage.getTotalTasksCount();
-        System.out.println("Количество задач до создания новой: " + initialTasksCount);
+        LogUtil.logToAllure("Количество задач до создания новой: " + initialTasksCount);
 
         taskPage.createNewTask(props.issueType(), props.summary());
 
         int updatedTasksCount = taskPage.getTotalTasksCount();
-        System.out.println("Общее количество заведенных задач после создания новой: " + updatedTasksCount);
+        LogUtil.logToAllure("Общее количество заведенных задач после создания новой: " + updatedTasksCount);
 
         Allure.step("Проверяем, что количество задач увеличилось на 1",
                 () -> assertEquals(initialTasksCount + 1, updatedTasksCount, "Количество задач не увеличилось на 1 после создания новой задачи.")
